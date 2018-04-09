@@ -1,0 +1,28 @@
+<html ng-app="scoreApp">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="score.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css"></link>
+    <script src="points.filter.js"></script>
+</head>
+
+<body ng-controller="ScoreController as score">
+    <table>
+        <tr ng-repeat="player in score.players">
+            <td>{{player.name}}</td>
+            <td>{{player.score | points}}</td>
+            <td>
+                <button ng-click="score.addPoint(player)" ng-disabled="player.disabled">AddPoint</button>
+            </td>
+        </tr>
+        <tr>
+            <td class="center" colspan="3">{{score.status}}</td>
+        </tr>
+        <tr>
+            <td class="center" colspan="3"><a ng-click="score.reset()" href="">Reset</a></td>
+        </tr>
+    </table>
+</body>
+
+</html>
