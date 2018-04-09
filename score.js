@@ -11,11 +11,11 @@ angular.module('scoreApp', [])
             if ((score.players[0].score == score.players[1].score) && score.players[0].score == 3) score.status = "Deuce";
             else if ((score.players[0].score >= 4) || (score.players[1].score >= 4)) {
                 var diff = score.players[0].score - score.players[1].score;
-                if (diff >= 2) wins(1);
-                if (diff == 1) advantage(1);
-                if (diff == 0) scoreDeuce();
-                if (diff == -1) advantage(2);
-                if (diff <= -2) wins(2);
+                if (diff >= 2) score.wins(1);
+                if (diff == 1) score.advantage(1);
+                if (diff == 0) score.scoreDeuce();
+                if (diff == -1) score.advantage(2);
+                if (diff <= -2) score.wins(2);
             }
         }
 
@@ -26,23 +26,25 @@ angular.module('scoreApp', [])
             score.status = " ";
         };
 
-        function resetDeuce() {
+        score.resetDeuce = function () {
             score.players = [
                 { name: 'Player 1', score: 3, disabled: false },
                 { name: 'Player 2', score: 3, disabled: false }];
         };
 
-        function scoreDeuce() {
+        score.scoreDeuce = function () {
             score.status = "Deuce";
-            resetDeuce();
+            score.resetDeuce();
         }
 
-        function advantage(numPlayer) {
+        score.advantage = function (numPlayer) {
             score.status = "Advantage for Player " + numPlayer;
         }
 
-        function wins(numPlayer) {
+        score.wins = function (numPlayer) {
             score.status = "Player " + numPlayer + " wins";
+            score.players[0].disabled = true;
+            score.players[1].disabled = true;
         }
 
     });
